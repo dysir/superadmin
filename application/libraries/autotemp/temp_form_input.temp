@@ -1,0 +1,1 @@
+_PN7_<label>_PN8_<input type="text" name="{{KEY}}" value="<?php echo empty($_GET['{{KEY}}'])?"":$_GET['{{KEY}}'];?>" class="form-control" placeholder="{{VALUE}}">_PN7_</label>

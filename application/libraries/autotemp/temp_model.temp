@@ -1,0 +1,34 @@
+class {{FILENAME}}_model extends CI_Model 
+{
+    {{TABLELIST}}
+    private $_db = "";
+
+    function __construct()
+    {
+        parent::__construct();
+        if (empty($this->_db)) {
+            $this->_db = $this->load->database("default", true);
+        }
+    }
+
+    function getList($arrWhere = array() )
+    {
+        {{SELECT}}
+        $sql = " {{SQL}} ";
+        $sqlNum = " {{SQLNUM}} ";
+        $arrParam = array();
+        $arrParamNum = array();
+{{WHERESQL}}
+        if (isset($arrWhere['ls'])) {
+            $sql .= " limit ? , ?";
+            $arrParam[] = $arrWhere['ls'];
+            $arrParam[] = $arrWhere['le'];
+        }
+        $list = $this->_db->query($sql, $arrParam)->result_array();
+        $arrCount = $this->_db->query($sqlNum, $arrParamNum)->row_array();
+        return array(
+            'list' => $list,
+            'num' => $arrCount['num']
+        );
+    }
+}
