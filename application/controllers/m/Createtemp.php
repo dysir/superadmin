@@ -4,7 +4,7 @@ class Createtemp extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		//超级管理员 或 管理员有访问权限
-		checkRightPage();
+		checkRightPage("superadmin");
 		$class = $this->router->fetch_class();
 
 		$this->load->model("admin/{$class}_model", "model");
