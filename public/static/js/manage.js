@@ -155,6 +155,12 @@ $(function(){
 			$e.find("h4").html(html);
 			$e.modal("show");
 			$e.find(".save").off();
+			var dirpath = getQueryString("dirpath");
+
+			if(dirpath != "" && dirpath !=undefined){
+
+				$e.find("input[name='url']").val(dirpath);
+			}
 			$e.find(".save").on("click",es);
 			return false;
 		}

@@ -1,4 +1,5 @@
 <script src="<?=static_url('js/autotemp.js')?>" type="text/javascript"></script>
+
 <h3 class="page-title">
 <?php
 echo $_current['mname'];
@@ -68,9 +69,20 @@ echo $_current['mname'];
     </div>
 </div>
 <div class="row" style="margin-top:20px">
-    <div class="col-md-6 rescreateinfo">
 
+    <?php
+    if(!empty($arrCreateloglist)){
+        foreach ($arrCreateloglist as $key => $value) {
+    ?>
+    <div class="col-md-12 rescreateinfo">
+        <pre><a href="/m/manage/navigation?dirpath=<?php echo $value['dirname'];?>" target="_blank" class="btn btn-success btn-xs">添加为目录</a> <button class="btn btn-danger btn-xs deletefile" aid=<?php echo $value['id'];?>>移除文件</button><br><br>创建时间：<?php echo $value['ctime'];?><br><?php
+            echo str_replace(",", "<br>", $value['file']);
+        ?></pre>
     </div>
+    <?php
+        }
+    }
+    ?>
 </div>
 <div class="modal fade" id="createfile" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">

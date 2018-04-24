@@ -30,8 +30,8 @@ echo empty($_current['mname'])?"":$_current['mname'];
             <div class="portlet-body">
                 <div class='row'>
                     <div class='col-md-12'>
-                        <form method='get' action="{{FORMACTION}}">
-{{SEARCHFORM}}
+                        <form method='get' action="/Test_goods/index">
+
                         </form>
                     </div>
                 </div>
@@ -39,17 +39,23 @@ echo empty($_current['mname'])?"":$_current['mname'];
                     <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        {{TITLE}}
+                        
+						<th>商品名</th>
+						<th>价格</th>
+						<th>库存</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
                     if (! empty($list)) {
                         foreach ($list as $key => $value) {
-                            {{COLUMNVIEWINFO}}
+                            
                     ?>
                     <tr>
-                        {{FIELD}}
+                        
+						<td><?php echo $value['name'];?></td>
+						<td><?php echo $value['price'];?></td>
+						<td><?php echo $value['num'];?></td>
                     </tr>
                     <?php
                         }

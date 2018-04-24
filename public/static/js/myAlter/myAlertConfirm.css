@@ -1,0 +1,9 @@
+.AlertSuccess {
+    background-color:#DFF0D8;
+}
+.AlertWarning {
+    background-color:#FCF8E3;
+}
+.AlertError {
+    background-color:#F2DEDE;
+}

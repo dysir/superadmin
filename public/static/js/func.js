@@ -33,19 +33,69 @@ function alertSuccess(errormsg)
 	$("body").append(html);
 	$("#error").modal("show");
 }
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    var q = window.location.pathname.substr(1).match(reg_rewrite);
+    if(r != null){
+        return unescape(r[2]);
+    }else if(q != null){
+        return unescape(q[2]);
+    }else{
+        return null;
+    }
+}
 var baseurl = "/m/";
 var globaldata = {};
 $.extend({
 	loadajax:function(obj)
-	{
-        Metronic.blockUI({
-            boxed: true
-        });
-        obj.complete = function()
-        {
-        	Metronic.unblockUI();
-        }
-		$.ajax(obj);
+	{	
+		myajax = function(o){
+			Metronic.blockUI({
+	            boxed: true
+	        });
+	        obj.complete = function()
+	        {
+	        	Metronic.unblockUI();
+	        }
+			$.ajax(obj);
+		}
+		if(obj.confirm != undefined){
+			$("body #my_confirm_html").remove();
+			var confirmHtml = 
+			'<div class="modal fade" id="my_confirm_html" tabindex="-1" role="basic" aria-hidden="true">'+
+				'<div class="modal-dialog">'+
+					'<div class="modal-content">'+
+						'<div class="modal-header">'+
+							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>'+
+							'<h4 class="modal-title">'+
+								obj.confirm +
+							'</h4>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<button type="button" class="btn btn-default confirm_cancel" data-dismiss="modal">取消</button>'+
+							'<button type="button" class="btn btn-danger confirm_save" data-dismiss="modal">确定</button>'+
+						'</div>'+
+					'</div>'+
+				'</div>'+
+			'</div>';
+			$("body").append(confirmHtml);
+			$("body #my_confirm_html").modal("show");
+
+			$("#my_confirm_html .confirm_save").on("click",function(){
+				$("body #my_confirm_html").modal("hide");
+				myajax(obj);
+			})
+			$("#my_confirm_html .confirm_cancel").on("click",function(){
+				$("body #my_confirm_html").modal("hide");
+			})
+		}else{
+			myajax(obj);
+		}
+
+
+
 	}
 })
 // 修改密码

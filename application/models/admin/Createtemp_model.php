@@ -3,6 +3,7 @@ class Createtemp_model extends CI_Model
 {
 	private $_db = "";
 	private $_databaseName = "";
+	private $_createLog = "create_log";
 
     function __construct()
     {
@@ -31,5 +32,17 @@ class Createtemp_model extends CI_Model
 		// 	$fieldComment[$value['COLUMN_NAME']] = empty($value['column_comment'])?$value['COLUMN_NAME']:trim($value['column_comment']);
 		// }
 		// return $fieldComment;
+	}
+	function insertCreateLog($arrInsert){
+		$this->_db->insert($this->_createLog , $arrInsert);
+		return $this->_db->insert_id();
+	}
+	function getCreateLog($arrWhere = array()){
+		$this->_db->where($arrWhere);
+		$this->_db->order_by('id', 'DESC');
+		return $this->_db->get($this->_createLog)->result_array();
+	}
+	function updateCreatelog($update , $arrWhere  ){
+		return $this->_db->update($this->_createLog, $update, $arrWhere);
 	}
 }

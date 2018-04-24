@@ -183,21 +183,46 @@ $(function(){
 						return false;
 					}
 
-					var info = "<pre><h5>生成目录列表</h5>";
-					var data = res.data;
+					// var data = res.data;
 
-					for(var i in data['file']){
-						info+=data['file'][i]+"\n";
-					}
-					info+="</pre>";
-					$(".rescreateinfo").html(info);
-					return true;
+					// var info = "<pre>"+
+					// 		   	"<button class='btn btn-success btn-xs'>添加为目录</button>"+
+					// 		   	" <button class='btn btn-danger btn-xs deletefile' aid='"+data['file_id']+"'>移除文件</button>"+
+					// 		   	"<br><br>创建时间："+data['file_ctime']+"<br>";
+					// 		   "</pre>";
+
+					// for(var i in data['file']){
+					// 	info+=data['file'][i]+"<br>";
+					// }
+					// info+="</pre>";
+					// $(".rescreateinfo").prepend(info);
+					// return true;
+					location.reload();
 				},
 				error:function(){
 					alertError(res.msg);
 				}
 
 			})
+		})
+	})
+	$(".deletefile").on("click",function(){
+		var id = $(this).attr("aid");
+		var othis = $(this);
+		$.loadajax({
+			confirm:"文件将被删除，请确认不是在使用中的目录!",
+			url:baseurl+"Createtemp/deletefile?id="+id,
+			success:function(res){
+				if(res.code == 1){
+					othis.parent().parent().remove();
+					alertSuccess(res.msg);
+				}else{
+					alertError(res.msg);
+				}
+			},
+			error:function(){
+				alertError("操作失败");
+			}
 		})
 	})
 })

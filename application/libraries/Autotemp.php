@@ -534,6 +534,9 @@ class Autotemp{
 
 		$arrParam = $this->_arrSearch;
 		$resHtml = "";
+		if(empty($arrParam)){
+			return $resHtml;
+		}
 		foreach ($arrParam as $key => $value) {
 			$phpTemp = "";
 			if($value['type'] == 1){
@@ -546,6 +549,7 @@ class Autotemp{
 			$phpTemp = str_replace("{{TABLENAME}}", $value['table'], $phpTemp);
 			$resHtml.=$phpTemp;
 		}
+		$resHtml.="_PN7_<button class='btn blue-madison' type='submit'>查询</button>";
 		return $resHtml;
 	}
 
