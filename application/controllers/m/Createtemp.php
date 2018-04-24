@@ -4,7 +4,7 @@ class Createtemp extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		//超级管理员 或 管理员有访问权限
-		checkRightPage("superadmin");
+		checkRightPage();
 		$class = $this->router->fetch_class();
 
 		$this->load->model("admin/{$class}_model", "model");
@@ -73,6 +73,7 @@ class Createtemp extends MY_Controller {
 		ajax(1 , array('columnview'=>$columnview) , 'success');
 	}
 	function deletefile(){
+		checkRightPage("superadmin");
 		$id = $this->input->get('id', true);
 		if(empty($id)){
 			ajax(-1 , '','缺少参数');
