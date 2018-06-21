@@ -57,6 +57,7 @@ ini_set('date.timezone', 'Asia/Shanghai');
 define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 if(!file_exists("./lock")){
      header("location:/install/install.php");
+     exit;
 }
 /*
  * ---------------------------------------------------------------
