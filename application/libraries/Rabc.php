@@ -59,15 +59,25 @@ class Rabc
             'url' => '',
             'parent' => ''
         );
-        
-        $atfunc =  empty($CI->router->fetch_directory() )?"/":"/".$CI->router->fetch_directory();
+        $resFd = $CI->router->fetch_directory();
+        $atfunc =  empty($resFd)?"/":"/".$CI->router->fetch_directory();
         $atfunc .= $CI->router->fetch_class()."/".$CI->router->fetch_method();
         $atfunc = strtolower($atfunc);
         if (! empty($arrMenuList)) {
             $arrLinkMenu = array();
             foreach ($arrMenuList as $key => $arrMenu) {
-                
-                if (strtolower($arrMenu['url']) == $atfunc) {
+                $bool = false;
+                if(strpos($arrMenu['url'], "?") ){
+                    $requesturl = substr($_SERVER["REQUEST_URI"], 0,1)=="/"?substr($_SERVER["REQUEST_URI"], 1):$_SERVER["REQUEST_URI"];
+
+                    $arrmenuurl = substr($arrMenu['url'], 0,1)=="/"?substr($arrMenu['url'], 1):$arrMenu['url'];
+
+
+                    if(substr($requesturl, 0,strlen($arrmenuurl)) == $arrmenuurl){
+                        $bool = true;
+                    }
+                }
+                if (strtolower($arrMenu['url']) == $atfunc||$bool) {
                     $arrCurent = array(
                         'mname' => $arrMenu['mname'],
                         'desription' => $arrMenu['desription'],
@@ -128,8 +138,8 @@ class Rabc
         $CI =& get_instance();
 
         $resFunc = "";
-
-        $resFunc = empty($CI->router->fetch_directory() )?"/":"/".$CI->router->fetch_directory();
+        $reFd = $CI->router->fetch_directory();
+        $resFunc = empty($reFd)?"/":"/".$CI->router->fetch_directory();
         $resFunc .= $CI->router->fetch_class()."/".$CI->router->fetch_method();
         return strtolower($resFunc);
     }

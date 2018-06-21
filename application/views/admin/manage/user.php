@@ -76,22 +76,11 @@ echo $_current['mname'];
                             <?php
                             if (!empty($value['gcode'])) {
                             ?>
-                            <a class="btn btn-default btn-xs" href="#erwm<?=$value['id']?>" data-toggle="modal"><?=$value['gcode']?></a>
-                             <script type="text/javascript">
-                                   $(function(){
-                                      var jj = "<?=$value['id']?>";
-                                      var url = "<?=$value['gcode']?>";
-                                      $("#erwm"+jj+"img").qrcode(url);
-                                  })
-                              </script>
+                            <button class="btn btn-default btn-xs getcodeimg"  aid="<?=$value['gcode']?>"><?=$value['gcode']?></button>
                             <?php
                             }
                             ?>
-                            <div id="erwm<?=$value['id']?>" class="modal fade" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog" style="    width: 280px;">
-                                  <div class="modal-content" style="    width: 280px;padding: 10px;" id="erwm<?=$value['id']?>img"></div>
-                                </div>
-                            </div>
+
                         </td>
                         <td>
                             <?php
@@ -242,3 +231,19 @@ echo $_current['mname'];
         </div>
     </div>
 </div>
+<div id="erwmserts" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 280px;">
+      <div class="modal-content" style="width: 280px;padding: 10px;" id="erwmimg"></div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $(".getcodeimg").click(function(){
+      var url = $(this).attr("aid");
+      $("#erwmimg").html("");
+      $("#erwmimg").qrcode(url);
+      $("#erwmserts").modal("show");
+    })
+
+})
+</script>

@@ -8,10 +8,14 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '',
-	'username' => '',
-	'password' => '',
-	'database' => 'super',
+	//数据库地址
+	'hostname' => '{host}',
+	//数据库用户名
+	'username' => '{name}',
+	//数据库密码
+	'password' => '{pwd}',
+	//数据库名
+	'database' => '{dbname}',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
