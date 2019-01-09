@@ -376,3 +376,15 @@ INSERT INTO user_group_right VALUES ('32', '9', '66', null, null);
 INSERT INTO user_group_right VALUES ('33', '9', '67', null, null);
 INSERT INTO user_group_right VALUES ('34', '9', '63', null, null);
 INSERT INTO user_group_right VALUES ('35', '9', '60', null, null);
+
+DROP TABLE IF EXISTS `create_log`;
+CREATE TABLE `create_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `authname` varchar(255) DEFAULT NULL COMMENT '推荐权限名',
+  `dirname` varchar(255) DEFAULT NULL COMMENT '推荐目录名',
+  `table` varchar(255) DEFAULT NULL COMMENT '多个表名逗号隔开',
+  `file` text COMMENT '多个文件名逗号隔开',
+  `ctime` datetime DEFAULT NULL,
+  `status` tinyint(2) DEFAULT '1' COMMENT '状态1正常  9 移除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
